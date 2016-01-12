@@ -2,6 +2,7 @@ import scrapy
 import re
 from scrapy.selector import Selector
 from appstore.items import AppstoreItem
+from scrapy.contrib.spiders import CrawlSpider, Rule
 
 class HuaweiSpider(scrapy.Spider):
   name = "huawei"
@@ -19,7 +20,12 @@ class HuaweiSpider(scrapy.Spider):
     for href in hrefs:
       url = href.extract()
       print('going')
-      yield scrapy.Request(url, callback=self.parse_item)
+      yield scrapy.Request(url, self.parse, meta = {
+          'splash': {
+              'endpoint': 'render.html',
+              'args': {'wait': 0.5}
+          }
+        })
       print('finish')
 
   def parse_item(self, response):
