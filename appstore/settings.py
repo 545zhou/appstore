@@ -50,7 +50,9 @@ NEWSPIDER_MODULE = 'appstore.spiders'
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'scrapyjs.SplashMiddleware': 725,
+	'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' : None,
+	'appstore.random_useragent.RandomUserAgentMiddleware' : 400,
+#	'appstore.random_proxy.RandomProxy' : 100,
 }
 
 SPLASH_URL = 'http://192.168.99.100:8050'
